@@ -1,0 +1,97 @@
+{% load crispy_forms_tags %}
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Novus Admin Panel an Admin Panel Category Flat Bootstrap Responsive Website Template | Basic Forms :: w3layouts</title>
+
+<!--//Metis Menu -->
+</head> 
+<body class="cbp-spmenu-push">
+	<div class="main-content">
+		<!--left-fixed -navigation-->
+	{% include 'dashboard/dashboard_left_nav.html' %}
+		<!-- //header-ends -->
+		{% include 'dashboard/top_nav.html' %}
+		<!-- main content start-->
+		<div id="page-wrapper">
+			<div class="main-page">
+				<div class="forms">
+					<h3 class="title1"></h3>
+					
+				
+					<div class="row">
+						
+{% load crispy_forms_tags %}
+<h1>Feedback</h1> 
+
+<div>
+
+    {% if tracking %}
+    <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Name</th>
+              <th scope="col">Address</th>
+              <th scope="col">postal code</th>
+              <th scope="col">country</th>
+              <th scope="col">District</th>
+              <th scope="col">Packed</th>
+              <th scope="col">Shipped</th>
+              <th scope="col">Delivered</th>
+              {% if user.register.user_type == 'staff' %}
+              <th scope="col">Update</th>
+              <th scope="col">Delete</th>
+              {% endif %}
+            
+            </tr>
+          </thead>
+          <tbody>
+              {% for i in tracking %}
+            <tr style="background-color:honeydew">
+                <td class="serial">{{ forloop.counter }}</td>
+
+                <td>{{ i.order.user.username}}</td>
+              <td>{{ i.order.address}}</td>
+              <td>{{ i.order.postal_code}}</td>
+              <td>{{ i.order.country }}</td>
+              <td>{{ i.order.district }}</td>
+              <td>{{i.packed_date}}</td>
+              <td>{{i.shipped_date}}</td>
+              <td>{{i.delivered_date}}</td>
+
+              {% if user.register.user_type == 'staff' %}
+              <td><a href="{% url 'orders:update_tracking' i.id %}">Update</a></td>
+              <td><a href="{% url 'orders:delete_tracking' i.id %}">Delete</a></td>
+              {% endif %}
+
+
+            
+              
+
+             
+            </tr>
+
+            {% endfor %}
+
+          </tbody>
+
+    </table>
+    {% else %}
+
+    <span>No Feedback can be found...</span>
+    {% endif %}
+
+
+
+</div>
+					</div>
+					
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--footer-->
+		{% include 'dashboard/dashboard_footer.html' %}
+</body>
+</html>

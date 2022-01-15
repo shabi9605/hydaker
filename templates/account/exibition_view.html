@@ -1,0 +1,118 @@
+{% extends 'index.html' %} {% block title %}product pag{% endblock %}{% load crispy_forms_tags %} {% block content %}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+{% if exibition %}
+<div id="fwslider">
+    <div class="slider_container">
+            </div>
+             <!-- /Texts container -->
+        </div>
+        
+        <!--/slide -->
+    </div>
+    <div class="timers"></div>
+    <div class="slidePrev"><span></span></div>
+    <div class="slideNext"><span></span></div>
+</div>
+<!--/slider -->
+<div class="main">
+<div class="wrap">
+    <div class="section group">
+      <div class="cont span_2_of_3">
+          <h2 class="head">Exibition Portal</h2>
+        <div class="top-box">
+            {% for listing in exibition %}         
+            <div class="col_1_of_3 span_1_of_3" style="height: 350px; width: 300px;"> 
+           <a href="">
+            <div class="inner_content clearfix">
+                <div class="product_image">
+                    <img src="{{listing.product.url}}" alt=""/>
+                </div>
+                <div class="sale-box"><span class="on_sale title_shop">{{listing.exibition_name}}</span></div>	
+                <div class="price">
+                   <div class="cart-left">
+                        <p class="title"></p>
+                        <div class="price1">
+                          <span class="actual">Caption:{{listing.caption}}</span>
+                        </div>
+                    <h3>{{listing.description}}</h3>
+
+                    </div>
+                    <!-- <div class="cart-right"> </div> -->
+                    
+                    <div class="clear"></div>
+                 </div>				
+               </div>
+             </a>
+            </div>
+            {% endfor %}
+           
+            <div class="clear"></div>
+        </div>			 						 			    
+      </div>
+        <div class="rsidebar span_1_of_left">
+            <div class="top-border"> </div>
+             <div class="border">
+             <link href="/static/css/default.css" rel="stylesheet" type="text/css" media="all" />
+             <link href="/static/css/nivo-slider.css" rel="stylesheet" type="text/css" media="all" />
+              <script src="/static/js/jquery.nivo.slider.js"></script>
+                <script type="text/javascript">
+                $(window).load(function() {
+                    $('#slider').nivoSlider();
+                });
+                </script>
+        <div class="slider-wrapper theme-default">
+          <div id="slider" class="nivoSlider">
+            <img src="/static/images/p1.jpg"  alt="" />
+               <img src="/static/images/p2.jpg"  alt="" />
+            <img src="/static/images/p4.jpg"  alt="" />
+          </div>
+         </div>
+          <div class="btn"><a href="{% url 'product' %}">Check it Out</a></div>
+         </div>
+       <div class="top-border"> </div>
+        
+    </div>
+   <div class="clear"></div>
+</div>
+</div>
+</div>
+
+         {% else %}<i class="fa fa-heart-o"></i>
+        <div class="col-md-12">
+            <p>No Listings Available</p>
+        </div>
+        {% endif %}
+    </div>
+</div>
+</div>
+</div>
+
+
+<div class="row">
+    <div class="col-md-12 text-center">
+
+        <div class="pag_area">
+            <ul class="pagination">
+                {% if products.has_previous %}
+                <li><a href="?page={{ products.previous_page_number }}">«</a></li>
+                {% else %}
+                <li class="disabled"><span>«</span></li>
+                {% endif %} {% for i in products.paginator.page_range %} {% if products.number == i %}
+                <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span>
+                </li>
+                {% else %}
+                <li><a href="?page={{ i }}">{{ i }}</a></li>
+                {% endif %} {% endfor %} {% if products.has_next %}
+                <li><a href="?page={{ products.next_page_number }}">»</a></li>
+                {% else %}
+                <li class="disabled"><span>»</span></li>
+                {% endif %}
+            </ul>
+        </div>
+
+    </div>
+</div>
+
+<!-- /.row -->
+{% endblock%}

@@ -1,0 +1,101 @@
+{% load crispy_forms_tags %}
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Novus Admin Panel an Admin Panel Category Flat Bootstrap Responsive Website Template | Basic Forms :: w3layouts</title>
+
+<!--//Metis Menu -->
+</head> 
+<body class="cbp-spmenu-push">
+	<div class="main-content">
+		<!--left-fixed -navigation-->
+	{% include 'dashboard/dashboard_left_nav.html' %}
+		<!-- //header-ends -->
+		{% include 'dashboard/top_nav.html' %}
+		<!-- main content start-->
+		<div id="page-wrapper">
+			<div class="main-page">
+				<div class="forms">
+					<h3 class="title1"></h3>
+					
+				
+					<div class="row">
+						
+{% load crispy_forms_tags %}
+<h1>Customizations</h1> 
+
+<div>
+
+    {% if adv_payment %}
+    <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Name</th>
+              <th scope="col">Phone</th>
+              <th scope="col">Post</th>
+              <th scope="col">State</th>
+              <th scope="col">District</th>
+              <th scope="col">Product</th>
+              <th scope="col">Wood</th>
+              <th scope="col">Colour</th>
+              <th scope="col">Material</th>
+              <th scope="col">Dimension</th>
+              <th scope="col">Polish</th>
+              <th scope="col">Foam</th>
+              <th scope="col">Adv Amount</th>
+              <th scope="col">Payment Id</th>
+            
+            </tr>
+          </thead>
+          <tbody>
+              {% for i in adv_payment %}
+            <tr style="background-color:honeydew">
+                <td class="serial">{{ forloop.counter }}</td>
+
+                <td>{{ i.user.username}}</td>
+              <td>{{ i.customer.phone}}</td>
+              <td>{{ i.customize.order.postal_code}}</td>
+              <td>{{ i.customize.order.state }}</td>
+              <td>{{i.customize.order.district}}</td>
+
+
+              <td>{{i.customize.product.name}}</td>
+              <td>{{i.customize.wood}}</td>
+              <td>{{i.customize.color}}</td>
+              <td>{{i.customize.material}}</td>
+              <td>{{i.customize.dimension}}</td>
+              <td>{{i.customize.polish}}</td>
+              <td>{{i.customize.foam}}</td>
+
+              <td>{{i.adv_amount}}</td>
+              <td>{{i.payment_id}}</td>
+            
+              
+
+             
+            </tr>
+
+            {% endfor %}
+
+          </tbody>
+
+    </table>
+    {% else %}
+
+    <span>No Feedback can be found...</span>
+    {% endif %}
+
+
+
+</div>
+					</div>
+					
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--footer-->
+		{% include 'dashboard/dashboard_footer.html' %}
+</body>
+</html>

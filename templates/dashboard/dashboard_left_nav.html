@@ -1,0 +1,99 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class=" sidebar" role="navigation">
+        <div class="navbar-collapse">
+            <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
+                <ul class="nav" id="side-menu">
+                    <li>
+                        <a href="{% url 'index' %}" class="active"><i class="fa fa-home nav_icon"></i>Home</a>
+                    </li>
+                    {%  if user.is_superuser %}
+                    <li>
+                        <a href="{% url 'admin:index' %}" class="active"><i class="fa fa-home nav_icon"></i>Admin dahboard</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'product_create' %}" class="active"><i class="fa fa-home nav_icon"></i>Add Furniture</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'view_all_feedback' %}" class="active"><i class="fa fa-home nav_icon"></i>View Feedback</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'payment:view_all_advance_payment' %}" class="active"><i class="fa fa-home nav_icon"></i>Custimzation</a>
+                    </li>
+                    {% endif %}
+                    
+                    {% if user.register.user_type == 'staff' %}
+                    
+                    <li>
+                        <a href="{% url 'dashboard' %}" class="active"><i class="fa fa-home nav_icon"></i>Dashboard</a>
+                    </li> 
+                    <li>
+                        <a href="{% url 'product_create' %}" class="active"><i class="fa fa-home nav_icon"></i>Create Product</a>
+                    </li> 
+                    <li>
+                        <a href="{% url 'product_list1' %}" class="active"><i class="fa fa-home nav_icon"></i>Products</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'payment:view_all_advance_payment' %}" class="active"><i class="fa fa-home nav_icon"></i>Custimzation</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'orders:orderview' %}" class="active"><i class="fa fa-home nav_icon"></i>Orders</a>
+                    </li>
+
+                    <li>
+                        <a href="{% url 'orders:view_all_tracking' %}" class="active"><i class="fa fa-home nav_icon"></i>Tracking</a>
+                    </li>
+                   
+                    
+                    
+                    {% endif %}
+                    {% if user.register.user_type == 'customer' %}
+                        <!-- //nav-second-level -->
+                    
+                    <li>
+                        <a href="{% url 'dashboard' %}" class="active"><i class="fa fa-home nav_icon"></i>Dashboard</a>
+                    </li>
+                  
+                    <li>
+                        <a href="{% url 'orders:neworder' %}" class="active"><i class="fa fa-home nav_icon"></i>Order</a>
+                    </li>
+
+                    <li>
+                        <a href="{% url 'orders:view_my_tracking' %}" class="active"><i class="fa fa-home nav_icon"></i>Tracking</a>
+                    </li>
+
+                    <li>
+                        <a href="{% url 'add_feedback' %}" class="active"><i class="fa fa-home nav_icon"></i>Feedback</a>
+                    </li>
+
+                    <li>
+                        <a href="{% url 'my_feedback' %}" class="active"><i class="fa fa-home nav_icon"></i>View Feedback</a>
+                    </li>
+
+                    <li>
+                        <a href="{% url 'payment:view_my_adv_payment' %}" class="active"><i class="fa fa-home nav_icon"></i>Custumization</a>
+                    </li>
+                   
+                
+                    <li>
+                        <a href="{% url 'payment:userpayment' %}" class="active"><i class="fa fa-home nav_icon"></i>View Payment</a>
+                    </li>
+                   
+                    
+                    {% endif %}
+                    <li>
+                        <!-- <a href="charts.html" class="chart-nav"><i class="fa fa-bar-chart nav_icon"></i>Charts <span class="nav-badge-btm pull-right">new</span></a> -->
+                    </li>
+                </ul>
+                <!-- //sidebar-collapse -->
+            </nav>
+        </div>
+    </div>
+</body>
+</html>

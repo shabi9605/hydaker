@@ -1,0 +1,59 @@
+{% extends 'index.html' %} {% block title %}Order List{% endblock title %} {% block breadcrumbs %}
+{% endblock breadcrumbs %} {% block content %}
+
+<h1 style="color:red; margin-top: 1em;">MY ORDERS</h1> 
+
+<div style="background-color: burlywood;">
+                    
+    <table class="table ">
+                        <thead>
+                            <tr style="height: 4em;">
+                                <th class="serial">#</th>
+                                <th>User</th>
+                                <th>Address</th>
+                                <th>Address Optional</th>
+                                <th>postal code</th>
+                                <th>country</th>
+                                <th>State</th>
+                                <th>created</th>
+                                <th>Updated</th>
+                                <th>paid</th>
+                                <th>Tracking</th>
+                                <th>Update</th>
+                                <th>Delete</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if order %} {% for order in order %}
+                            <tr style="height: 3em;font-size: 1.2em;">
+                                <td class="serial">{{ forloop.counter }}</td>
+                                <td>{{ order.user }}</td>
+                                <td>{{ order.address }}</td>
+                                <td>{{ order.address_second }}</td>
+                                <td>{{ order.postal_code }}</td>
+                                <td>{{ order.country }}</td>
+                                <td>{{ order.state }}</td>
+                                <td>{{ order.created }}</td>
+                                <td>{{ order.updated }}</td> 
+                                {% if order.paid == True %}
+                                <td>Paid</td>
+                                {% else %}
+                                <td>Check Paid</td>
+                                {% endif %}
+                                <td><a href="{% url 'orders:add_tracking' order.id %}">Tracking</a></td>
+                                <td><a href="{% url 'orders:update_order' order.id %}">Update</a></td>
+                                <td><a href="{% url 'orders:delete_order' order.id %}">Delete</a></td>
+
+                            </tr>
+                            {% endfor %} 
+                        </tbody>
+                    </table>
+                            {% else %}
+                            <tr>
+                                <td>No Order Data</td>
+                            </tr>
+                            {% endif %}
+                     
+            </div>
+{% endblock content %}

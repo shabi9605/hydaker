@@ -1,0 +1,109 @@
+{% extends 'index.html' %}{% load static %}{% block title %}product pag{% endblock %}{% load crispy_forms_tags %} {% block content %}
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+<div class="row" style="background-image: url('/static/images/order1.jpg');background-repeat: no-repeat;background-size: 140em 60em;">
+    <div class="col-md-8">
+        <h4 class="mb-3">Shipping Address</h4>
+
+        <form name="form" action="{% url 'order_save' %}" method="POST" class="needs-validation " novalidate>{% csrf_token %}
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="firstName">First name</label>
+                    <input type="text" style="color: sienna;" class="form-control" id="firstName " placeholder="" value="{{user.first_name}}" required>
+                    <div class="invalid-feedback ">
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3 ">
+                    <label for="lastName ">Last name</label>
+                    <input type="text" style="color: sienna;" class="form-control" id="lastName " placeholder=" " value="{{profile.user.last_name}} " required>
+                    <div class="invalid-feedback ">
+                        Valid last name is required.
+                    </div>
+                </div>
+            </div>
+            <div class="mb-3 ">
+                <label for="username">Full name</label>
+                <div class="input-group ">
+
+                    <input type="text" style="color: sienna;" value="{{user.first_name}} {{user.last_name}}" class="form-control " id="username " placeholder="Username " required>
+                    <div class="invalid-feedback " style="width: 100%; ">
+                        Your full name is required.
+                    </div>
+                </div>
+            </div>
+            <div class="mb-3 ">
+                <label for="username">Phone</label>
+                <div class="input-group">
+
+                    <input type="text" value="{{user.register.phone}}" style="color: sienna;" class="form-control " id="username " placeholder="phone " required>
+                    <div class="invalid-feedback" style="width: 100%; ">
+                        Your phonenumber is required.
+                    </div>
+                </div>
+            </div>
+            <div class="mb-3 ">
+                <label for="username">Username</label>
+                <div class="input-group ">
+                    <input type="text " value="{{profile.user.username}}" style="color: sienna;" class="form-control " id="username " placeholder="Username " required>
+                    <div class="invalid-feedback " style="width: 100%; ">
+                        Your username is required.
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-3 ">
+                <label for="email">Email <span class="text-muted">(Optional)</span></label>
+                <input type="email" class="form-control"  style="color: sienna;"placeholder="you@example.com " value="{{profile.user.email}} ">
+                <div class="invalid-feedback ">
+                    Please enter a valid email address for shipping updates.
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="address">Address</label>
+                <input type="text"  style="color: sienna;" name="address" class="form-control" placeholder="1234 Main St" value="" required>
+                <div class="invalid-feedback">
+                    Please enter your shipping address.
+                </div>
+            </div>
+            <div class="mb-3 ">
+                <label for="address2">Address2 <span class="text-muted ">(Optional)</span></label>
+                <input name="address_secound" style="color: sienna;" type="text " class="form-control" placeholder="Apartment or suite ">
+            </div>
+
+            <div class="row">
+                <div class="col-md-5 mb-3 ">
+                    <label for="country">Country</label>
+                    <input type="text" style="color: sienna;" name="country" value="{{user.register.country}}" class="form-control " id="zip" placeholder=" " required>
+                    <div class="invalid-feedback ">
+                        Please select a valid country.
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3 ">
+                    <label for="state">State</label>
+                    <input type="text" name="state" class="form-control" id="zip" value="{{user.register.state}}" style="color: sienna;" placeholder="" required>
+                    <div class="invalid-feedback ">
+                        Please provide a valid state.
+                    </div>
+                </div>
+                <div class="col-md-3 mb-3 ">
+                    <label for="zip">Zip</label>
+                    <input type="text" style="color: sienna;" class="form-control" value="{{user.register.postal_code}}" name="zip" id="zip " placeholder=" " required>
+                    <div class="invalid-feedback ">
+                        Zip code required.
+                    </div>
+                </div>
+
+            </div>
+
+
+            <hr class="mb-4 ">
+
+            <hr class="mb-4 ">
+            <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
+        </form>
+    </div>
+    
+</div>
+{% endblock %}

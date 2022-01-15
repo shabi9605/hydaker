@@ -1,0 +1,301 @@
+{% include 'nav.html' %}
+{% block content %}
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+* {box-sizing: border-box;}
+
+.img-zoom-container {
+  position: relative;
+}
+
+.img-zoom-lens {
+  position: absolute;
+  border: 1px solid #d4d4d4;
+  /*set the size of the lens:*/
+  width: 140px;
+  height: 140px;
+}
+
+.img-zoom-result {
+  border: 1px solid #d4d4d4;
+  /*set the size of the result div:*/
+  width: 300px;
+  height: 300px;
+}
+</style>
+<script>
+function imageZoom(imgID, resultID) {
+  var img, lens, result, cx, cy;
+  img = document.getElementById(imgID);
+  result = document.getElementById(resultID);
+  /*create lens:*/
+  lens = document.createElement("DIV");
+  lens.setAttribute("class", "img-zoom-lens");
+  /*insert lens:*/
+  img.parentElement.insertBefore(lens, img);
+  /*calculate the ratio between result DIV and lens:*/
+  cx = result.offsetWidth / lens.offsetWidth;
+  cy = result.offsetHeight / lens.offsetHeight;
+  /*set background properties for the result DIV:*/
+  result.style.backgroundImage = "url('" + img.src + "')";
+  result.style.backgroundSize = (img.width * cx) + "px " + (img.height * cy) + "px";
+  /*execute a function when someone moves the cursor over the image, or the lens:*/
+  lens.addEventListener("mousemove", moveLens);
+  img.addEventListener("mousemove", moveLens);
+  /*and also for touch screens:*/
+  lens.addEventListener("touchmove", moveLens);
+  img.addEventListener("touchmove", moveLens);
+  function moveLens(e) {
+    var pos, x, y;
+    /*prevent any other actions that may occur when moving over the image:*/
+    e.preventDefault();
+    /*get the cursor's x and y positions:*/
+    pos = getCursorPos(e);
+    /*calculate the position of the lens:*/
+    x = pos.x - (lens.offsetWidth / 2);
+    y = pos.y - (lens.offsetHeight / 2);
+    /*prevent the lens from being positioned outside the image:*/
+    if (x > img.width - lens.offsetWidth) {x = img.width - lens.offsetWidth;}
+    if (x < 0) {x = 0;}
+    if (y > img.height - lens.offsetHeight) {y = img.height - lens.offsetHeight;}
+    if (y < 0) {y = 0;}
+    /*set the position of the lens:*/
+    lens.style.left = x + "px";
+    lens.style.top = y + "px";
+    /*display what the lens "sees":*/
+    result.style.backgroundPosition = "-" + (x * cx) + "px -" + (y * cy) + "px";
+  }
+  function getCursorPos(e) {
+    var a, x = 0, y = 0;
+    e = e || window.event;
+    /*get the x and y positions of the image:*/
+    a = img.getBoundingClientRect();
+    /*calculate the cursor's x and y coordinates, relative to the image:*/
+    x = e.pageX - a.left;
+    y = e.pageY - a.top;
+    /*consider any page scrolling:*/
+    x = x - window.pageXOffset;
+    y = y - window.pageYOffset;
+    return {x : x, y : y};
+  }
+}
+</script>
+
+
+      <!-- Modal -->
+      <div class="modal fade lug" id="myModal" role="dialog" >
+         <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+               <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Change</h4>
+               </div>
+               <div class="modal-body">
+                  <ul>
+                     <li><a href="#"><img src="images/flag-up-1.png" alt="" /> United States</a></li>
+                     <li><a href="#"><img src="images/flag-up-2.png" alt="" /> France </a></li>
+                  </ul>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div id="sidebar" class="top-nav">
+         <ul id="sidebar-nav" class="sidebar-nav">
+            <li><a href="#">Help</a></li>
+            <li><a href="#">How it works</a></li>
+            <li><a href="#">Chamb for Business</a></li>
+         </ul>
+      </div>
+      <div class="terms-conditions product-page">
+         <div class="terms-title">
+            <div class="container">
+               <div class="row">
+                  <ol class="breadcrumb">
+                     <li><a href="#">Forntpage </a></li>
+                     <li class="active">Furniture</li>
+                     <li class="active">Sofa</li>
+                     <li><a href="#">All setup Sofa</a></li>
+                  </ol>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="product-page-main">
+         <div class="container">
+            <div class="row">
+               <div class="col-md-12">
+                  <div class="prod-page-title">
+                     <h2>All setup Sofa</h2>
+                     <p>By <span>Dex Morgan Mobilya</span></p>
+                  </div>
+               </div>
+            </div>
+            <div class="row">
+               <div class="col-md-2 col-sm-4">
+                  <div class="left-profile-box-m prod-page">
+                     <div class="pro-img">
+                        <!-- <img src="images/150x150.png" alt="#" /> -->
+                     </div>
+                     <div class="pof-text">
+                        <h3>Hydacker</h3>
+                        <div class="check-box"></div>
+                     </div>
+                     <a href="#">Visit store</a>
+                  </div>
+               </div>
+               <div class="col-md-7 col-sm-8">
+                  <div class="md-prod-page">
+                     <div class="md-prod-page-in">
+                        <div class="page-preview">
+                           <div class="preview">
+                              <div class="preview-pic tab-content">
+                                 
+                                 <div class="tab-pane active" id="pic-1"><a href=""><img id="myimage" src="{% if product.photo %}{{ product.photo.url }}{% endif %}" alt="#" /></a></div>
+               
+                                 <div class="tab-pane" id="pic-2"><a href=""><img id="myimage1" src="{% if product.photo1 %}{{ product.photo1.url }}{% endif %}" alt="#" /></a></div>
+                                 <div class="tab-pane" id="pic-3"><a href=""><img id="myimage" src="{% if product.photo2 %}{{ product.photo2.url }}{% endif %}" alt="#" /></a></div>
+                                 <div class="tab-pane" id="pic-4"><a href=""><img id="myimage" src="{% if product.photo3 %}{{ product.photo3.url }}{% endif %}" alt="#" /></a></div>
+                             
+                              </div>
+                          
+                            
+                            
+                              <div class="img-zoom-container">
+                                 <!-- <div class="tab-pane active" id="pic-1"><a href=""><img id="myimage" src="{% if product.photo %}{{ product.photo.url }}{% endif %}" alt="#" /></a></div> -->
+                              
+                              <div id="myresult" class="img-zoom-result" style="width:630px"></div>
+                              <ul class="preview-thumbnail nav nav-tabs">
+                                 <li class="active"><a data-target="#pic-1" data-toggle="tab"><img src="{% if product.photo %}{{ product.photo.url }}{% endif %}" alt="#" /></a></li>
+                                 <li ><a data-target="#pic-2" data-toggle="tab"><img src="{% if product.photo1 %}{{ product.photo1.url }}{% endif %}" alt="#" /></a></li>
+                                 <li><a data-target="#pic-3" data-toggle="tab"><img src="{% if product.photo2 %}{{ product.photo2.url }}{% endif %}" alt="#" /></a></li>
+                                 <li><a data-target="#pic-4" data-toggle="tab"><img src="{% if product.photo3 %}{{ product.photo3.url }}{% endif %}" alt="#" /></a></li>
+                              </ul>
+                           </div>
+                        </div>
+                        </div>
+                        <div class="btn-dit-list clearfix">
+                           <div class="left-dit-p">
+                              <div class="prod-btn">
+                                 <!-- <a href="#"><i class="fa fa-star" aria-hidden="true"></i> Save to wishlist</a>
+                                 <a href="#"><i class="fa fa-thumbs-up" aria-hidden="true"></i> Like this</a>
+                                 <p>23 likes</p> -->
+                              </div>
+                              <a href="{% url  'cart:cart_add' product.id %}" data-abc="true" style="padding-right: 2em;"><i class="fa fa-shopping-cart" style="color:blue;"></i><span>Cart</span></a>|
+                              <a href="{% url 'product_detail' product.id %}" data-abc="true"  style="padding-right: 2em;"><i class="fa fa-angle-right"></i><span>Details</span></a>|
+                              <a class="fa fa-heart" href="{% url  'wishlist:wishlist_add' product.id %}" data-abc="true"><i style="color:blue;"></i><span>Wishlist </span></a>
+                           </div>
+                           <div class="right-dit-p">
+                              <div class="like-list">
+                                 <ul>
+                                    <!--  -->
+                                 </ul>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="description-box"  style="margin-bottom: 3em;">
+                        <div class="dex-a">
+                           <h4>Description</h4>
+                           <p>L{{product.description}} ..
+                           </p>
+                           <br>
+                           <p>{{product.dimensions}} /
+                           
+                        </div>
+                        <div class="spe-a">
+                           <h4>Specifications</h4>
+                           <ul>
+                              <li class="clearfix">
+                                 <div class="col-md-4">
+                                    <h5>Measurments</h5>
+                                 </div>
+                                 <div class="col-md-8">
+                                    <p>{{product.dimensions}}</p>
+                                 </div>
+                              </li>
+                              <li class="clearfix">
+                                 <div class="col-md-4">
+                                    <h5>Material</h5>
+                                 </div>
+                                 <div class="col-md-8">
+                                    <p>{{product.materials}}</p>
+                                 </div>
+                              </li>
+                              <li class="clearfix">
+                                 <div class="col-md-4">
+                                    <h5>Stock</h5>
+                                 </div>
+                                 <div class="col-md-8">
+                                    <p>{{product.stock}}</p>
+                                 </div>
+                              </li>
+                              <li class="clearfix">
+                                 <div class="col-md-4">
+                                    <h5>Color</h5>
+                                 </div>
+                                 <div class="col-md-8">
+                                    <p>{{product.basic_color}}</p>
+                                 </div>
+                              </li>
+                              <li class="clearfix">
+                                 <div class="col-md-4">
+                                    <h5>Foam</h5>
+                                 </div>
+                                 <div class="col-md-8">
+                                    <p>{{product.foam}}</p>
+                                 </div>
+                              </li>
+                              <li class="clearfix">
+                                 <div class="col-md-4">
+                                    <h5>Wood Name</h5>
+                                 </div>
+                                 <div class="col-md-8">
+                                    <p>{{product.wood_name}}</p>
+                                 </div>
+                              </li>
+                              <li class="clearfix">
+                                 <div class="col-md-4">
+                                    <h5>Warranty</h5>
+                                 </div>
+                                 <div class="col-md-8">
+                                    <p>{{product.warrenty}}</p>
+                                 </div>
+                              </li>
+                              <li class="clearfix">
+                                 <div class="col-md-4">
+                                    <h5>Contact Number</h5>
+                                 </div>
+                                 <div class="col-md-8">
+                                    <p>{{product.contact_number}}</p>
+                                 </div>
+                              </li>
+                           </ul>
+                        </div>
+                     </div>
+                  </div>
+                  
+               </div>
+               <div class="col-md-3 col-sm-12">
+                  <div class="price-box-right">
+                     <h4>Price</h4>
+                     <h3>Rs.{{product.price}} <span>{{product.name}}</span></h3>
+                     <a href="{% url  'cart:cart_add' product.id %}" data-abc="true" style="padding-right: 2em;"><i class="fa fa-shopping-cart" style="color:white;"></i><span> Cart</span></a>
+                     <a href="{% url 'product_detail' product.id %}" data-abc="true"  style="padding-right: 2em;"><i class="fa fa-angle-right"></i><span> Details</span></a>
+                     <a class="fa fa-heart" href="{% url  'wishlist:wishlist_add' product.id %}" data-abc="true"><i style="color:blue;"></i><span> Wishlist </span></a>
+                     <a href="{% url  'cart:cart_add' product.id %}">Buy Now</a>
+                     <h5><i class="fa fa-clock-o" aria-hidden="true"></i> <strong>16 hours</strong> avg. responsive time</h5>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+
+      <script>
+         // Initiate zoom effect:
+         imageZoom("myimage", "myresult");
+
+         </script>
+      {% include 'footer.html' %}
+      {% endblock %}

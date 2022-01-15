@@ -1,0 +1,77 @@
+{% extends 'index.html' %}
+{% block content %}
+      <!-- Modal -->
+      <div class="modal fade lug" id="myModal" role="dialog">
+         <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+               <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Change</h4>
+               </div>
+               <div class="modal-body">
+                  <ul>
+                     <li><a href="#"><img src="/static/images/flag-up-1.png" alt="" /> United States</a></li>
+                     <li><a href="#"><img src="/static/images/flag-up-2.png" alt="" /> France </a></li>
+                  </ul>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div id="sidebar" class="top-nav">
+         <ul id="sidebar-nav" class="sidebar-nav">
+            <li><a href="#">Help</a></li>
+            <li><a href="{% url 'howwork' %}">How it works</a></li>
+            <!-- <li><a href="#">chamb for Business</a></li> -->
+         </ul>
+      </div>
+      <div class="page-content-product">
+         <div class="main-product">
+            <div class="container">
+               <div class="row clearfix">
+                  <div class="find-box">
+                     <h1>Find your category <br>Make your Home Beuti.</h1>
+                     <h4>It is easy to make home happy with us</h4>
+                     
+                       
+                     <div class="product-sh">
+                        <div class="col-sm-6">
+                           <div class="form-sh">
+                              <!-- <input type="text" name="query" placeholder="Search something you love" > -->
+                           </div>
+                        </div>
+                     
+                      
+                        <div class="col-sm-3">
+                           <!-- <div class="form-sh"> <a class="btn" href="#">Search</a> </div> -->
+                        </div>
+                     </form>
+                        <!-- <p>Or simply<a href="#"> click here </a> and get inspired!</p> -->
+                     </div>
+                  </div>
+               </div>
+
+               <div class="row clearfix">
+                  {% for c in list %}
+                  <div class="col-lg-3 col-sm-6 col-md-3">
+                     <a href="productpage.html">
+                        <div class="box-img">
+                           <h4>{{c.name}}</h4>
+                          
+
+                          <a href="{% url 'categorysearch' c.id %}"> <img src="{{c.image.url}}" alt="" /></a>
+                           
+
+                        </div>
+                     </a>
+                  </div>
+                  
+                  {% endfor %}
+                     <!-- <div class="categories_link">
+                     <!-- <a href="#">Browse all categories here</a> -->
+                  </div> -->
+               </div>
+            </div>
+         </div>
+      </div>
+      {% endblock %}

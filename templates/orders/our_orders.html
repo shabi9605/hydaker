@@ -1,0 +1,66 @@
+{% extends 'index.html' %}
+
+{% load crispy_forms_tags %} {% block content %}
+<h1>MY ORDERS</h1> 
+
+<div>
+
+    {% if order %}
+    <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Name</th>
+              <th scope="col">Price</th>
+              <th scope="col">Date</th>
+              <th scope="col">Quantity</th>
+              <!-- <th scope="col">Payment status</th> -->
+              <th scope="col">Delivery Status</th>
+			  <th scope="col">Expected Delivery</th>
+
+            </tr>
+          </thead>
+          <tbody>
+              {% for i in order %}
+            <tr style="background-color:honeydew">
+                <td class="serial">{{ forloop.counter }}</td>
+
+                <td>{{ i.user.username}}</td>
+              <td>{{ i.product.price}}</td>
+              <td>{{ i.order.created}}</td>
+              <td>{{ i.quantity }}</td>
+              <!-- {% if i.order.paid == True %}
+                <td style="color: green;font-size: 20px;">Paid</td>
+                {% else %}
+                <td style="color: red;font-size: 20px;">Not Paid</td>
+                {% endif %} -->
+                <td style="font-size: 20px;">{{ i.order.status }}</td>
+				        <td style="font-size: 20px;">{{ i.order.deliverd_date }}</td>
+              
+
+             
+            </tr>
+
+            {% endfor %}
+
+          </tbody>
+
+    </table>
+    {% else %}
+
+    <span>No orders can be found...</span>
+    {% endif %}
+
+
+{% for n in order %}
+
+
+
+{% endfor %} 
+
+</div>
+
+{% endblock %}
+
+
+

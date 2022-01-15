@@ -1,0 +1,78 @@
+{% load crispy_forms_tags %}
+<!--
+Author: W3layouts
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Product Create</title>
+
+<!--//Metis Menu -->
+</head> 
+<body class="cbp-spmenu-push">
+	<div class="main-content">
+		<!--left-fixed -navigation-->
+	{% include 'dashboard/dashboard_left_nav.html' %}
+		<!-- //header-ends -->
+		{% include 'dashboard/top_nav.html' %}
+		<!-- main content start-->
+		<div id="page-wrapper">
+			<div class="main-page">
+				<div class="forms">
+					<h3 class="title1"></h3>
+						<h4>Product Table </h4>
+						<div>{% if messages %} {% for mess in messages %}
+							<b style="color: brown;">{{mess}}</b> {% endfor %} {% endif %}</div>
+					</div>
+						<table class="table">
+							<thead>
+								<tr>
+								<th>#</th>
+								  <th>Category</th>
+								  <th>Name</th>
+								  <th>Photo</th>
+                                  <th>Price</th>
+                                  <th>Dimensions</th>
+                                  <th>Wood Name</th>
+                                  <th>Stock</th>
+								  <th>Update</th>
+								  <th>Delete</th>
+								 
+								</tr>
+							</thead>
+							{% for l in list %}
+							<tbody>
+								<tr>
+									<td class="serial">{{ forloop.counter }}</td>
+
+								  <td>{{l.category}}</td>
+								  <td>{{l.name}}</td>
+                                  <td><img src="{{l.photo.url}}" width="40px" height="40px"></td>
+                                  <td>{{l.price}}</td>
+                                  <td>{{l.dimensions}}</td>
+                                  <td>{{l.wood_name}}</td>
+                                  <td>{{l.stock}}</td>
+								  <td><a href="{% url 'update_product' l.id %}" style="color: red;">Update Product</a></td>
+								  <td><a href="{% url 'delete_product' l.id%}" style="color: red;" onclick="return confirm('are u sure d u want to delete this record')">Delete</a></td>
+
+								</tr>
+								
+							</tbody>
+							{% endfor %}
+						</table>
+					</div>
+				</div>
+	
+					
+			</div>
+		</div>
+	</div>
+</div>
+
+{% include 'dashboard/dashboard_footer.html' %}
+
+</body>
+</html>
